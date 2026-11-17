@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WeatherApp.Interfaces
 {
-    internal interface IPopUp
+    internal interface IMauiPopupService
     {
         Task ShowingPopUp(string title, string message, string buttonText);
     }

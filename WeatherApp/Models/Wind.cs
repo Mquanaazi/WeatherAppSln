@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WeatherApp
+namespace WeatherApp.Models
 {
     public class Wind
     {

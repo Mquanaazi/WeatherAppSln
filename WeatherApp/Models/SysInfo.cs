@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WeatherApp
+namespace WeatherApp.Models
 {
-    public class Sys
+    public class SysInfo
     {
         public int type { get; set; }
         public int id { get; set; }

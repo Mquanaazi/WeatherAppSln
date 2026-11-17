@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WeatherApp
+namespace WeatherApp.Models
 {
     // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
 
-    public class Main
+    public class WeatherData
     {
         public double temp { get; set; }
         public double feels_like { get; set; }

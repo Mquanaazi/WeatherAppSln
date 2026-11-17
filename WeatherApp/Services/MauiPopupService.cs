@@ -1,11 +1,11 @@
-﻿using ChuckNorrisJokesApp.Interfaces;
+﻿using WeatherApp.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ChuckNorrisJokesApp.Services
+namespace WeatherApp.Services
 {
-    internal class MauiPopupService : IPopUp
+    internal class MauiPopupService : IMauiPopupService
     {
         public async Task ShowingPopUp(string title, string message, string buttonText)
         {

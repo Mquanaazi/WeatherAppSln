@@ -1,14 +1,14 @@
-﻿using ChuckNorrisJokesApp.Interfaces;
-using ChuckNorrisJokesApp.Models;
+﻿using WeatherApp.Interfaces;
+using WeatherApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace ChuckNorrisJokesApp.Services
+namespace WeatherApp.Services
 {
-    public class WeatherHttpApiService : IChuckNorriesHttpApiService
+    public class WeatherHttpApiService : IWeatherHttpApiService
     {
         private  IConfigurationService _configurationService;
         private HttpClient _httpClient;
@@ -19,31 +19,27 @@ namespace ChuckNorrisJokesApp.Services
             _httpClient = new HttpClient();
 
         }
-        public async Task<string> GetJokeAsync()
-
+        public async Task<string> GetWeatherDataAsync()
         {
-            HttpResponseMessage response = await _httpClient.GetAsync(_configurationService.ChuckNorrisApiUrl);
-            //return _httpClient.GetStringAsync(_configurationService.ChuckNorrisApiUrl).Result;
+            HttpResponseMessage response = await _httpClient.GetAsync(_configurationService.WeatherApiUrl);
+            //return _httpClient.GetStringAsync(_configurationService.WeatherApiUrl).Result;
 
             if (response.IsSuccessStatusCode)
             {
                 string jsonContent = await response.Content.ReadAsStringAsync();
-                ChuckNorrisJoke Joke = JsonSerializer.Deserialize<ChuckNorrisJoke>(jsonContent);
-               
+              WeatherData weatherData = JsonSerializer.Deserialize<WeatherData>(jsonContent);
 
-                if (Joke != null)
+
+                if (weatherData != null)
                 {
-                    return Joke.value;
+                    return weatherData.temp.ToString();
                 }
                 else
                 {
-                    return "No joke found.";
+                    return "No weather data found.";
                 }
             }
             return null;
-
         }
-
-
     }
 }

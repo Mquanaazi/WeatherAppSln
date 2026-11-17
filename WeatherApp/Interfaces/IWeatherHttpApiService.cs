@@ -1,6 +1,6 @@
 ﻿namespace WeatherApp.Interfaces
 {
-    public interface WeatherHttpApiService
+    public interface IWeatherHttpApiService
     {
         Task<string> GetWeatherDataAsync();
     }
