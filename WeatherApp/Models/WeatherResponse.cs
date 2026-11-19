@@ -4,12 +4,12 @@ using System.Text;
 
 namespace WeatherApp.Models
 {
-    public class WeatherResponse
+    public class WeatherData
     {
         public Coord coord { get; set; }
         public List<Weather> weather { get; set; }
         public string @base { get; set; }
-        public WeatherData main { get; set; }
+        public Main main { get; set; }
         public int visibility { get; set; }
         public Wind wind { get; set; }
         public Clouds clouds { get; set; }

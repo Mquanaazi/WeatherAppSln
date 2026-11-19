@@ -2,13 +2,136 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="WeatherApp.Views.HomePage"
-             Title="HomePage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to UWC weather app!"
-            
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-        <Label Text="{Binding WeatherData}" />
-    </VerticalStackLayout>
+             Title="Weather"
+             BackgroundColor="#EEF3FF">
+
+    <ContentPage.Resources>
+        <Color x:Key="Blue">#1E4FD8</Color>
+        <Color x:Key="DarkBlue">#0F2E8A</Color>
+        <Color x:Key="Orange">#FF8A1F</Color>
+
+        <Style x:Key="RowLabel" TargetType="Label">
+            <Setter Property="TextColor" Value="#6B7A99" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+
+        <Style x:Key="RowValue" TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource DarkBlue}" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontAttributes" Value="Bold" />
+            <Setter Property="HorizontalOptions" Value="End" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+
+        <Style x:Key="SectionTitle" TargetType="Label">
+            <Setter Property="TextColor" Value="{StaticResource Orange}" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="FontAttributes" Value="Bold" />
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="*,Auto">
+
+        <ScrollView Grid.Row="0">
+            <VerticalStackLayout Padding="16" Spacing="16">
+
+                <Label Text="{Binding ErrorMessage}" TextColor="red" />
+
+                <Border BackgroundColor="{StaticResource Orange}" Stroke="Transparent" Padding="24">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="24" />
+                    </Border.StrokeShape>
+                    <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
+                        <Label Text="{Binding Weather.name}" TextColor="White" FontSize="30" FontAttributes="Bold" HorizontalOptions="Center" />
+                        <Label Text="{Binding Weather.sys.country}" TextColor="#BFD0FF" HorizontalOptions="Center" />
+                        <Label Text="{Binding Weather.main.temp, StringFormat='{0:F0}°C'}" TextColor="White" FontSize="64" FontAttributes="Bold" HorizontalOptions="Center" />
+                        <Label Text="{Binding Weather.weather[0].description}" TextColor="{StaticResource White}" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </Border>
+
+
+                <Border BackgroundColor="White" Stroke="Transparent" Padding="20">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20" />
+                    </Border.StrokeShape>
+                    <VerticalStackLayout Spacing="12">
+                        <Label Text="TEMPERATURE" Style="{StaticResource SectionTitle}" />
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Feels like" Style="{StaticResource RowLabel}" />
+                            <Label Grid.Column="1" Text="{Binding Weather.main.feels_like, StringFormat='{0:F0}°C'}" Style="{StaticResource RowValue}" />
+                        </Grid>
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Min" Style="{StaticResource RowLabel}" />
+                            <Label Grid.Column="1" Text="{Binding Weather.main.temp_min, StringFormat='{0:F0}°C'}" Style="{StaticResource RowValue}" />
+                        </Grid>
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Max" Style="{StaticResource RowLabel}" />
+                            <Label Grid.Column="1" Text="{Binding Weather.main.temp_max, StringFormat='{0:F0}°C'}" Style="{StaticResource RowValue}" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border BackgroundColor="White" Stroke="Transparent" Padding="20">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20" />
+                    </Border.StrokeShape>
+                    <VerticalStackLayout Spacing="12">
+                        <Label Text="CONDITIONS" Style="{StaticResource SectionTitle}" />
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Humidity" Style="{StaticResource RowLabel}" />
+                            <Label Grid.Column="1" Text="{Binding Weather.main.humidity, StringFormat='{0}%'}" Style="{StaticResource RowValue}" />
+                        </Grid>
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Pressure" Style="{StaticResource RowLabel}" />
+                            <Label Grid.Column="1" Text="{Binding Weather.main.pressure, StringFormat='{0} hPa'}" Style="{StaticResource RowValue}" />
+                        </Grid>
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Wind speed" Style="{StaticResource RowLabel}" />
+                            <Label Grid.Column="1" Text="{Binding Weather.wind.speed, StringFormat='{0} m/s'}" Style="{StaticResource RowValue}" />
+                        </Grid>
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Wind direction" Style="{StaticResource RowLabel}" />
+                            <Label Grid.Column="1" Text="{Binding Weather.wind.deg, StringFormat='{0}°'}" Style="{StaticResource RowValue}" />
+                        </Grid>
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Cloud cover" Style="{StaticResource RowLabel}" />
+                            <Label Grid.Column="1" Text="{Binding Weather.clouds.all, StringFormat='{0}%'}" Style="{StaticResource RowValue}" />
+                        </Grid>
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Visibility" Style="{StaticResource RowLabel}" />
+                            <Label Grid.Column="1" Text="{Binding Weather.visibility, StringFormat='{0} m'}" Style="{StaticResource RowValue}" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border BackgroundColor="White" Stroke="Transparent" Padding="20">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="20" />
+                    </Border.StrokeShape>
+                    <VerticalStackLayout Spacing="12">
+                        <Label Text="SUN" Style="{StaticResource SectionTitle}" />
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Sunrise" Style="{StaticResource RowLabel}" />
+                            <Label Grid.Column="1" Text="{Binding Sunrise}" Style="{StaticResource RowValue}" />
+                        </Grid>
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Sunset" Style="{StaticResource RowLabel}" />
+                            <Label Grid.Column="1" Text="{Binding Sunset}" Style="{StaticResource RowValue}" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Button Grid.Row="1"
+                Text="Refresh"
+                Command="{Binding GetWeatherCommand}"
+                BackgroundColor="{StaticResource Orange}"
+                TextColor="White"
+                FontAttributes="Bold"
+                CornerRadius="16"
+                Margin="16,0,16,16" />
+    </Grid>
 </ContentPage>

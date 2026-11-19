@@ -1,38 +1,55 @@
-﻿using WeatherApp.ViewModels;
-using WeatherApp.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
+﻿using WeatherApp.Interfaces;
+using WeatherApp.Models;
+
 
 namespace WeatherApp.ViewModels
 {
-       public class HomeViewModel : BaseViewModel
+    public class HomeViewModel : BaseViewModel
+    {
+        private IWeatherHttpApiService _weatherService;
+        private WeatherData _weather;
+
+
+        public HomeViewModel(IWeatherHttpApiService weatherService)
         {
+            _weatherService = weatherService;
+        }
 
-            private string _weatherData;
-            public ICommand GetWeatherCommand { get; }
-            public string WeatherData
+        public WeatherData Weather
+        {
+            get { return _weather; }
+            set
             {
-                get { return _weatherData; }
-                set
-                {
-                    _weatherData = value;
-                    OnPropertyChanged();
-                }
-            }
-
-            private IWeatherHttpApiService _weatherApiService;
-            public HomeViewModel(IWeatherHttpApiService service)
-            {
-                _weatherApiService = service;
-                GetWeatherCommand = new Command(FetchWeather);
-            }
-            private async void FetchWeather(object param)
-            {
-                WeatherData = await _weatherApiService.GetWeatherDataAsync();
+                _weather = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(Sunrise));
+                OnPropertyChanged(nameof(Sunset));
             }
         }
 
-}                           
-  
+        public string Sunrise
+        {
+            get
+            {
+                if (Weather == null) return "";
+                return DateTimeOffset.FromUnixTimeSeconds(Weather.sys.sunrise).ToLocalTime().ToString("HH:mm");
+            }
+        }
+
+        public string Sunset
+        {
+            get
+            {
+                if (Weather == null) return "";
+                return DateTimeOffset.FromUnixTimeSeconds(Weather.sys.sunset).ToLocalTime().ToString("HH:mm");
+            }
+        }
+
+        public async Task LoadWeatherAsync()
+        {
+            Weather = await _weatherService.GetWeatherDataAsync();
+        }
+
+
+    }
+}

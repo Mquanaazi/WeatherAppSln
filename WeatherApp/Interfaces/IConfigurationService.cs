@@ -4,10 +4,8 @@ using System.Text;
 
 namespace WeatherApp.Interfaces
 {
-    public interface IConfigurationService 
+    public interface IConfigurationService
     {
-        string WeatherApiUrl { get; }
-
-
+        string GetWeatherApiUrl(double latitude, double longitude);
     }
 }

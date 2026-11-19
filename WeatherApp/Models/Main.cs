@@ -6,7 +6,7 @@ namespace WeatherApp.Models
 {
     // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse);
 
-    public class WeatherData
+    public class Main
     {
         public double temp { get; set; }
         public double feels_like { get; set; }
