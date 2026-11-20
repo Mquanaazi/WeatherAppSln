@@ -1,3 +1,5 @@
 <Solution>
-  <Project Path="WeatherApp/WeatherApp.csproj" />
+  <Project Path="WeatherApp/WeatherApp.csproj">
+    <Deploy Solution="Debug|*" />
+  </Project>
 </Solution>
